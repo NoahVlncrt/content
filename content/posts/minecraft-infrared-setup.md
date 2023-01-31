@@ -3,21 +3,24 @@ title: "How to Host a Minecraft Server From Home"
 description: "Hosting a minecraft server doesn't have to be hard lets use docker and infrared to get it all setup"
 categories: [Docker, Reverse Proxy, Infrared]
 date: 2023-01-27T11:49:26-05:00
-draft: false
+draft: true
 ---
 
+{{TOC}}
+
 # Introduction
-While hosting a Minecraft server isn't difficult it can be tricky. I'll be using Docker and a reverse proxy to show you how to setup and host your Minecraft server safe and securely! This all came about because while I thought it was going to be easy it ended up being a lot harder then it should have been. Especially when it came to setting up the reverse proxy.
+While hosting a Minecraft server isn't difficult it can be tricky. I'll be using Docker and a reverse proxy to show you how to setup and host your Minecraft server safe and securely! This all came about because while I thought it was going to be easy it ended up being a lot harder than it should have been. Especially when it came to setting up the reverse proxy.
 
 # Prerequisites
 Before we get started you'll need the following.
 - Docker and docker compose
 - The ability to port forward on your router
-- A domain name (for this we'll be using 'minecraftserver.com' as the domain name)
-- The ability to setup A records on that domain (I recommend cloudflare but it's up to you)
+- A domain name (for this example we'll be using 'minecraftserver.com' as the domain name)
+- The ability to setup A records on that domain (I recommend Cloudflare but it's up to you)
+- Your devices IP address
 
 # Setting Up The Minecraft Server
-First we need to setup a Minecraft server. I'll be using the itzg/minecraft-server image as it is extremely flexible and allows for a lot of customization with mods. Create a file called 'docker-compose.yml' this is where we will be deploying the containers. Paste the following into your docker compose file.
+First we need to setup a Minecraft server. I'll be using the itzg/minecraft-server [itzg/minecraft-server](https://github.com/itzg/docker-minecraft-server) as it is extremely flexible and allows for a lot of customization with mods. Create a file called 'docker-compose.yml' this is where we will be deploying the containers. Paste the following into your docker compose file.
 
 ```yml
 version: "3.3"
@@ -29,8 +32,30 @@ services:
     image: itzg/minecraft-server
     environment:
       EULA: "true"
-
 ```
 This will create a vanilla server and start it with the eula accepted. Take note of the container name that will be important later. Also did you notice we didn't expose any ports on this container? That's because Infrared is going to be taking care of that!
+
+Now run the following command this will spin up the server and generate the world. Do this before the next step just so you can double check and make sure that the container starts up correctly.
+
+```
+docker-compose up
+```
+
+# Setting Up Your DNS Records
+For infrared to work you need a couple things. You need to forward port 25565 on your router as udp/tcp. I will not be getting into that here because it is out of the scope of this article. It's fairly easy to do. A quick google search will send you down the right path. Once you have that setup come back!
+
+You'll also need to know your public IP I will not be sharing mine here but you can use [https://whatismyipaddress.com](https://whatismyipaddress.com) to find it.
+
+Now that we have forwarded a port and know our public IP address we can setup our DNS records. For this example I'll be using Cloudflare. Let's go ahead and create our A record.
+dnssetup.png
+Make sure the ipv4 address points to your public ip and if you're using Cloudflare that the proxy is turned off. I haven't been able to get the proxy feature to work with it on sadly.
+
+# Setting Up The Reverse Proxy
+Now here comes the fun part. We’re going to setup [Infrared](https://github.com/haveachin/infrared). It’s a really neat reverse proxy that sits on top of your Minecraft server. It then forwards the traffic to your server depending on the request made to it. It even lets you auto shutdown the server if there’s no traffic to it and it even starts it up when a request is made! This allows you to host multiple Minecraft servers on one system and have them all use a single entry port. No more opening a bunch of random ports!
+
+Now that we know what it is and what it does it’s time to add it to our docker compose. Now go ahead and paste this into your docker compose file.
+
+Howdy yeet esketti
+
 
 
