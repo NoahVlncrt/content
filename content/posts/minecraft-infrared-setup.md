@@ -3,7 +3,7 @@ title: "How to Host a Minecraft Server From Home"
 description: "Hosting a minecraft server doesn't have to be hard lets use docker and infrared to get it all setup"
 categories: [Docker, Reverse Proxy, Infrared]
 date: 2023-01-27T11:49:26-05:00
-draft: true
+draft: false
 ---
 
 # Introduction
