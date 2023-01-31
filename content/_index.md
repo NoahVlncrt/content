@@ -8,3 +8,4 @@ heading:
   align: left
 
 ---
+Mostly just messing around with homelab and fun IT stuff right now.
