@@ -46,7 +46,9 @@ For infrared to work you need a couple things. You need to forward port 25565 on
 You'll also need to know your public IP I will not be sharing mine here but you can use [https://whatismyipaddress.com](https://whatismyipaddress.com) to find it.
 
 Now that we have forwarded a port and know our public IP address we can setup our DNS records. For this example I'll be using Cloudflare. Let's go ahead and create our A record.
-dnssetup.png
+
+Set the "name" to the subdomain of your choosing for the example I'll use the be using "mc". Set the value to your public IP address.
+
 Make sure the ipv4 address points to your public ip and if you're using Cloudflare that the proxy is turned off. I haven't been able to get the proxy feature to work with it on sadly.
 
 # Setting Up The Reverse Proxy
