@@ -4,9 +4,8 @@ description: "Hosting a minecraft server doesn't have to be hard lets use docker
 categories: [Docker, Reverse Proxy, Infrared]
 date: 2023-01-27T11:49:26-05:00
 draft: false
+thumbnail: false
 ---
-
-{{TOC}}
 
 # Introduction
 While hosting a Minecraft server isn't difficult it can be tricky. I'll be using Docker and a reverse proxy to show you how to setup and host your Minecraft server safe and securely! This all came about because while I thought it was going to be easy it ended up being a lot harder than it should have been. Especially when it came to setting up the reverse proxy.
