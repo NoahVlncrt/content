@@ -32,18 +32,18 @@ services:
     environment:
       EULA: "true"
 ```
-This will create a vanilla server and start it with the eula accepted. Take note of the container name that will be important later. Also did you notice we didn't expose any ports on this container? That's because Infrared is going to be taking care of that!
+This will create a vanilla server and start it with the eula accepted. Take note of the container name that will be important later. Did you notice we didn't expose any ports on this container? That's because Infrared is going to be taking care of that!
 
-Now run the following command this will spin up the server and generate the world. Do this before the next step just so you can double check and make sure that the container starts up correctly.
+Now run the following command this will spin up the server and generate the world. Do this before the next step so you can double check and make sure that the container starts up correctly.
 
 ```
 docker-compose up
 ```
 
 # Setting Up Your DNS Records
-For infrared to work you need a couple things. You need to forward port 25565 on your router as udp/tcp. I will not be getting into that here because it is out of the scope of this article. It's fairly easy to do. A quick google search will send you down the right path. Once you have that setup come back!
+For infrared to work you need a couple things. You need to forward port 25565 on your router as udp/tcp. I will not be getting into that here because it is out of the scope of this article. It's easy to do. A quick google search will send you down the right path. Once you have that setup come back!
 
-You'll also need to know your public IP I will not be sharing mine here but you can use [https://whatismyipaddress.com](https://whatismyipaddress.com) to find it.
+You'll need to know your public IP I will not be sharing mine here but you can use [https://whatismyipaddress.com](https://whatismyipaddress.com) to find it.
 
 Now that we have forwarded a port and know our public IP address we can setup our DNS records. For this example I'll be using Cloudflare. Let's go ahead and create our A record.
 
@@ -85,7 +85,7 @@ services:
       INFRARED_CONFIG_PATH: "/configs"
 ```
 
-Don't start it yet! If you've been paying attention you'll notice there is a volume mapped for infrared configs. Now this is truly where all the magic happens. Go ahead and create a folder to put them in. Once you do that create a file called mc.minecraftserver.com.json. Paste the following in.
+Don't start it yet! If you've been paying attention you'll notice there is a volume mapped for infrared configs. Now this is where all the magic happens. Go ahead and create a folder to put them in. Once you do that create a file called mc.minecraftserver.com.json. Paste the following in.
 
 ```json
 {
@@ -95,7 +95,7 @@ Don't start it yet! If you've been paying attention you'll notice there is a vol
 }
 ```
 
-Let's go over what we're looking at here. The first line "domainName" is what domain name the server is under. This is where the A record you setup earlier comes in handy. The second line "proxyTo" tells infrared what server to send the traffic too. This is where the magic of Dockers DNS comes in handy. I kept getting hung up here because even if I set it to my devices ip I would still run into issues. The only way I was able to get it to work is if I set it to the containers name. Which in my opinion is a cleaner way of handling it. The third line "listenTo" tells infrared what ip to listen to for incoming connections.
+Let's go over what we're looking at here. The first line "domainName" is what domain name the server is under. This is where the A record you setup earlier comes in handy. The second line "proxyTo" tells infrared what server to send the traffic to. This is where the magic of Dockers DNS comes in handy. I kept getting hung up here because even if I set it to my devices ip I would run into issues. The only way I was able to get it to work is if I set it to the containers name. Which in my opinion is a cleaner way of handling it. The third line "listenTo" tells infrared what ip to listen to for incoming connections.
 
 # Finishing Up
 Now that everything is all setup up correctly all you have to do is run.
@@ -104,4 +104,4 @@ Now that everything is all setup up correctly all you have to do is run.
 docker-compose up
 ```
 
-This will spin up both containers. After a few minutes open up Minecraft and try connecting to your server at mc.minecraftexample.com and boom! It should all be working perfectly. I recommend checking out the documentation for both the [itzg/minecraft-server](https://github.com/itzg/docker-minecraft-server) and [haveachin/infrared](https://github.com/haveachin/infrared) containers. They have lots of config options that are super handy. Infrared even has an API server that lets you dynamically add entries to it. Enjoy your server and have fun playing!
+This will spin up both containers. After a few minutes open Minecraft and try connecting to your server at mc.minecraftexample.com and boom! It should all be working perfectly. I recommend checking out the documentation for both the [itzg/minecraft-server](https://github.com/itzg/docker-minecraft-server) and [haveachin/infrared](https://github.com/haveachin/infrared) containers. They have lots of config options that are super handy. Infrared even has an API server that lets you dynamically add entries to it. Enjoy your server and have fun playing!
